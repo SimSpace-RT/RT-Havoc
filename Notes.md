@@ -1,6 +1,11 @@
 
 ### **Red Team Usage**
 
+#### **Installation**
+- **Go 1.22**: `cd /tmp && wget https://go.dev/dl/go1.22.5.linux-amd64.tar.gz && rm -rf /usr/local/go && tar -C /usr/local -xzf go1.22.5.linux-amd64.tar.gz && echo 'export PATH=/usr/local/go/bin:$PATH' >> ~/.zshrc && source ~/.zshrc`
+- **Dependencies**: `apt update && apt install -y git build-essential cmake libfontconfig1-dev libfreetype6-dev libx11-dev libx11-xcb-dev libxext-dev libxfixes-dev libxi-dev libxrender-dev libxcb1-dev libxcb-cursor-dev libxcb-glx0-dev libxcb-keysyms1-dev libxcb-image0-dev libxcb-shm0-dev libxcb-icccm4-dev libxcb-sync-dev libxcb-xfixes0-dev libxcb-shape0-dev libxcb-randr0-dev libxcb-render-util0-dev libxcb-util-dev libxcb-xinerama0-dev libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev libssl-dev python3 python3-dev qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools libqt5websockets5-dev libspdlog-dev nasm mingw-w64`
+- **Clone and Build**: `cd /home/kali && git clone https://github.com/HavocFramework/Havoc.git && cd Havoc && make client-build && cd teamserver && go mod tidy && cd .. && make ts-build`
+
 #### **Payload Configuration**
 
 - **Architecture**: x64
@@ -11,10 +16,10 @@
 - **Jitter**: 25
 - **Indirect Syscall**: ✔️
 - **Stack Duplication**: ✔️
-- **Sleep Technique**: Foliage
+- **Sleep Technique**: Zilean
 - **Sleep Jmp Gadget**: `jmp rbx`
 - **Proxy Loading**: RtlQueueWorkItem
-- **Amsi/ETW Patch**: Hardware breakpoints
+- **Amsi/ETW Patch**: None
 
 **Injection**:
 - **Alloc**: Native/Syscall
@@ -51,7 +56,7 @@ Listeners {
         Hosts        = [
             "myprivatevpn.com",  
         ]
-        HostBind     = "8.209.128.8"   
+        HostBind     = "0.0.0.0"   
         PortBind     = 443
         PortConn     = 443         
         HostRotation = "round-robin" 
