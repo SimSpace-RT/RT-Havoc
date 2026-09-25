@@ -1,10 +1,10 @@
 
 ### **Red Team Usage**
 
-#### **Installation**
-- **Go 1.22**: `cd /tmp && wget https://go.dev/dl/go1.22.5.linux-amd64.tar.gz && rm -rf /usr/local/go && tar -C /usr/local -xzf go1.22.5.linux-amd64.tar.gz && echo 'export PATH=/usr/local/go/bin:$PATH' >> ~/.zshrc && source ~/.zshrc`
-- **Dependencies**: `apt update && apt install -y git build-essential cmake libfontconfig1-dev libfreetype6-dev libx11-dev libx11-xcb-dev libxext-dev libxfixes-dev libxi-dev libxrender-dev libxcb1-dev libxcb-cursor-dev libxcb-glx0-dev libxcb-keysyms1-dev libxcb-image0-dev libxcb-shm0-dev libxcb-icccm4-dev libxcb-sync-dev libxcb-xfixes0-dev libxcb-shape0-dev libxcb-randr0-dev libxcb-render-util0-dev libxcb-util-dev libxcb-xinerama0-dev libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev libssl-dev python3 python3-dev qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools libqt5websockets5-dev libspdlog-dev nasm mingw-w64`
-- **Clone and Build**: `cd /home/kali && git clone https://github.com/HavocFramework/Havoc.git && cd Havoc && make client-build && cd teamserver && go mod tidy && cd .. && make ts-build`
+#### **Installation**: Install client via Kali, install and run server via Dockerfile included in this repo (Run as root) 
+- apt update && apt install havoc
+- docker build --no-cache -t havoc-c2 .
+-  docker run -it -p 40056:40056 -p 443:443 --name havoc-c2-instance havoc-c2:latest
 
 #### **Payload Configuration**
 
