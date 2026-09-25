@@ -4,7 +4,7 @@
 #### **Installation**: Install client via Kali, install and run server via Dockerfile included in this repo (Run as root) 
 - apt update && apt install havoc
 - docker build --no-cache -t havoc-c2 .
--  docker run -it -p 40056:40056 -p 443:443 --name havoc-c2-instance havoc-c2:latest
+-  docker run -it --network host --name havoc-c2-instance havoc-c2:latest
 
 #### **Payload Configuration**
 
