@@ -33,12 +33,10 @@ RUN sed -i 's/#ifndef _WIN32_WINNT/#define _WIN32_WINNT 0x0A00\n#ifndef _WIN32_W
 typedef struct _CFG_CALL_TARGET_INFO {\n    ULONG_PTR Offset;\n    ULONG_PTR Flags;\n} CFG_CALL_TARGET_INFO, *PCFG_CALL_TARGET_INFO;\n' /usr/x86_64-w64-mingw32/include/winnt.h && \
     sed -i 's/#if _WIN32_WINNT >= 0x0600/#if 1/g' /usr/x86_64-w64-mingw32/include/securitybaseapi.h
 
-RUN sed -i 's/#if _WIN32_WINNT >= 0x0600/#if 1/g' /usr/x86_64-w64-mingw32/include/processthreadsapi.h
-
-
-
 WORKDIR /opt/Havoc
 RUN git clone https://github.com/HavocFramework/Havoc.git .
+
+RUN printf "\n#ifndef ProcThreadAttributeValue\n#define ProcThreadAttributeValue(Number, Thread, Input, Additive) (((Number) & 0x0000FFFF) | ((Thread) ? 0x00010000 : 0) | ((Input) ? 0x00020000 : 0) | ((Additive) ? 0x00040000 : 0))\n#endif\n" >> payloads/Demon/include/core/MiniStd.h
 
 RUN make ts-build
 
